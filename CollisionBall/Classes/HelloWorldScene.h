@@ -24,9 +24,12 @@ enum  {
 };
 
 enum  {
-     kGamePlaying,
-     kGameReady
-    };
+    kGamePlaying,
+    kGameReady,
+    kGameOver,
+    kMatchOver,
+    kMatchNew
+};
 
 class HelloWorld : public cocos2d::CCLayer {
 public:
@@ -39,13 +42,14 @@ public:
     static cocos2d::CCScene* scene();
     
     void initPhysics();
-    
+    void resetGame();
     virtual void draw();
     virtual void ccTouchesBegan(cocos2d::CCSet* touches, cocos2d::CCEvent* event);
     virtual void ccTouchesMoved(cocos2d::CCSet* touches, cocos2d::CCEvent* event);
     virtual void ccTouchesEnded(cocos2d::CCSet* touches, cocos2d::CCEvent* event);
     void update(float dt);
     void playerScore (int player);
+    void playerWin (int player);
 
 private:
     
@@ -58,6 +62,7 @@ private:
     
     Ball* _ball;
     CCSprite* _startflag;
+    CCSprite* _winnerflag;
     CCLabelTTF* _player1ScoreLabel;
     CCLabelTTF* _player2ScoreLabel;
     

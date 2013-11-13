@@ -39,6 +39,7 @@ void Ball::initBall() {
     _body->SetSleepingAllowed(true);
     _body->SetLinearDamping(0.0);
     _body->SetAngularDamping(0.8);
+    _body->SetBullet(true);
     
     //create circle shape
     b2CircleShape  circle;

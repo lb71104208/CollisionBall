@@ -12,7 +12,7 @@ public:
     CC_SYNTHESIZE(CCPoint, _nextPosition, NextPosition);
 	
 	CC_SYNTHESIZE(CCPoint, _vector, Vector);
-    
+    CC_SYNTHESIZE(int, _score, Score);
     CC_SYNTHESIZE(CCTouch *, _touch, Touch);
     static Player* create(HelloWorld * game);
     //virtual void setPosition(const CCPoint& pos);

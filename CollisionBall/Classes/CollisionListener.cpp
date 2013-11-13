@@ -17,6 +17,7 @@ CollisionListener::CollisionListener (HelloWorld * game) {
 }
 
 void CollisionListener::BeginContact(b2Contact* contact) {
+    //bool islocked = _game->getWorld()->IsLocked();
     b2Body * bodyA = contact->GetFixtureA()->GetBody();
     b2Body * bodyB = contact->GetFixtureB()->GetBody();
     
@@ -29,21 +30,21 @@ void CollisionListener::BeginContact(b2Contact* contact) {
         if (spriteA->getType() == kSpriteBaseline) {
             spriteB->setVisible(false);
             if (spriteA->getPosition().y < _game->getContentSize().height/2) {
-                _game->playerScore(kPlayer1Tag);
+                _game->playerScore(kPlayer2Tag);
             }
             else
             {
-                _game->playerScore(kPlayer2Tag);
+                _game->playerScore(kPlayer1Tag);
             }
         
         } else if (spriteB->getType() == kSpriteBaseline) {
             spriteA->setVisible(false);
             if (spriteB->getPosition().y < _game->getContentSize().height/2) {
-                _game->playerScore(kPlayer1Tag);
+                _game->playerScore(kPlayer2Tag);
             }
             else
             {
-                _game->playerScore(kPlayer2Tag);
+                _game->playerScore(kPlayer1Tag);
             }
         
         }

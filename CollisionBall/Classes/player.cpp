@@ -30,7 +30,7 @@ void Player::initPlayer() {
     _body->SetSleepingAllowed(true);
     _body->SetLinearDamping(1.2);
     _body->SetAngularDamping(0.8);
-    
+    _body->SetBullet(true);
     
     //set sprite texture
     this->initWithFile("plate.png");
@@ -45,6 +45,8 @@ void Player::initPlayer() {
     fixtureDef.restitution = 1;
     _body->CreateFixture(&fixtureDef);
     _body->SetUserData(this);
+    
+    _score = 0;
     
 }
 

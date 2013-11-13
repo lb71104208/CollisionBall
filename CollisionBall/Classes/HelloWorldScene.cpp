@@ -47,8 +47,6 @@ HelloWorld::HelloWorld()
     _player1Score = 0;
     _player2Score = 0;
     
-    
-    
 }
 
 HelloWorld::~HelloWorld()
@@ -72,8 +70,8 @@ void HelloWorld::initPhysics()
     _world = new b2World(gravity);
 
     // Do we want to let bodies sleep?
-    _world->SetAllowSleeping(true);
-    _world->SetContinuousPhysics(true);
+    //_world->SetAllowSleeping(true);
+    //_world->SetContinuousPhysics(true);
     
      m_debugDraw = new GLESDebugDraw( PTM_RATIO );
      _world->SetDebugDraw(m_debugDraw);
@@ -126,28 +124,6 @@ void HelloWorld::initPhysics()
     //add ball
     _ball = Ball::create(this, kSpriteBall, ccp(_screenSize.width/2, _screenSize.height/2));
     this->addChild(_ball);
-    
-    //create box2d body
-//    b2BodyDef ballBodyDef;
-//    ballBodyDef.type = b2_dynamicBody;
-//    
-//    b2Body *ballBody;
-//    ballBody = _world->CreateBody(&bodyDef);
-//    ballBody->SetSleepingAllowed(true);
-//    ballBody->SetLinearDamping(1.2);
-//    ballBody->SetAngularDamping(0.8);
-//    ballBody->SetTransform(b2Vec2(_screenSize.width/2, _screenSize.height/2),0);
-//    
-//    //create circle shape
-//    b2CircleShape  circle;
-//    circle.m_radius = 8/PTM_RATIO;
-//    
-//    //define fixture
-//    b2FixtureDef fixtureDef;
-//    fixtureDef.shape = &circle;
-//    fixtureDef.density = 5;
-//    fixtureDef.restitution = 0.7;
-//    ballBody->CreateFixture(&fixtureDef);
 
     
     //add player
@@ -186,16 +162,33 @@ void HelloWorld::update(float dt)
     //You need to make an informed choice, the following URL is useful
     //http://gafferongames.com/game-physics/fix-your-timestep/
     
-    if (_gameState != kGamePlaying) {
+    
+    
+    if(_gameState == kMatchNew||_gameState == kGameOver)
+    {
+        resetGame();
+        return;
+    }
+    
+    else if (_gameState != kGamePlaying) {
         return;
     }
     
     int velocityIterations = 10;
-    int positionIterations = 10;
+    int positionIterations = 20;
+    
+    uint substeps = 3;
+    float32 subdt = dt / substeps;
+    
+    for (uint i = 0; i < substeps; i++) {
+        _world->Step(subdt, velocityIterations, positionIterations);
+        
+        // do your physics-related stuff inside here but leave any sprites manipulation outside this loop
+    }
     
     // Instruct the world to perform a single step of simulation. It is
     // generally best to keep the time step and iterations fixed.
-    _world->Step(dt, velocityIterations, positionIterations);
+    //_world->Step(dt, velocityIterations, positionIterations);
    
     _ball->update(dt);
     for (int p = 0; p < _players->count(); p++) {
@@ -209,10 +202,13 @@ void HelloWorld::update(float dt)
 
 void HelloWorld::ccTouchesBegan(CCSet* pTouches, CCEvent* event)
 {
-    if (_startflag->isVisible()==true) {
+    if (_gameState == kMatchOver) {
+        _gameState = kMatchNew;
+    }
+    if (_gameState == kGameReady) {
         _startflag->setVisible(false);
-        _gameState = kGamePlaying;
         _ball->getBody()->ApplyLinearImpulse(b2Vec2(0.0,-100.0),_ball->getBody()->GetWorldCenter());
+        _gameState = kGamePlaying;
         return;
     }
     
@@ -232,7 +228,6 @@ void HelloWorld::ccTouchesBegan(CCSet* pTouches, CCEvent* event)
                 if (player->boundingBox().containsPoint(tap)) {
                 	//store player's touch
                 	player->setTouch(touch);
-                    //_ball->getBody()->ApplyLinearImpulse(b2Vec2(0,100), _ball->getBody()->GetWorldCenter());
 				}
         	}
         }
@@ -333,38 +328,82 @@ void HelloWorld::playerScore (int player) {
     SimpleAudioEngine::sharedEngine()->playEffect("score.wav");
     
     char score_buffer[10];
-    
+    Player* winner;
     //if player 1 scored...
     if (player == 1) {
-        
-        _player1Score++;
-        sprintf(score_buffer,"%i", _player1Score);
+        winner = (Player*)_players->objectAtIndex(0);
+        winner->setScore(winner->getScore()+1);
+        sprintf(score_buffer,"%i", winner->getScore());
         _player1ScoreLabel->setString(score_buffer);
-        //move ball to player 2 court
-        _ball->setPosition(ccp(_screenSize.width * 0.5, _screenSize.height * 0.5 + 2 * _ball->getContentSize().width/2));
-        
-        //if player 2 scored...
-    } else {
-        
-        _player2Score++;
-        sprintf(score_buffer,"%i", _player2Score);
-        _player2ScoreLabel->setString(score_buffer);
-        //move ball to player 1 court
-        _ball->setPosition(ccp(_screenSize.width * 0.5, _screenSize.height * 0.5 - 2 * _ball->getContentSize().width/2));
-        
+
     }
-    //move players to original position
+    //if player 2 scored...
+    else
+    {
+        winner = (Player*)_players->objectAtIndex(1);
+        winner->setScore(winner->getScore()+1);
+        sprintf(score_buffer,"%i", winner->getScore());
+        _player2ScoreLabel->setString(score_buffer);
+
+    }
     
-    for (int p = 0; p < _players->count(); p++) {
-        Player* ply = (Player*)_players->objectAtIndex(p);
-        if (p == 0) {
-            ply->setPosition(ccp(_screenSize.width * 0.5, ply->getContentSize().height/2));
+    if (winner->getScore() == 3) {
+        if (player == 1) {
+            playerWin(kPlayer1Tag);
         }
         else
         {
-            ply->setPosition(ccp(_screenSize.width * 0.5, _screenSize.height - ply->getContentSize().height/2));
+            playerWin(kPlayer2Tag);
         }
+        return;
+    }
+    _gameState = kGameOver;
+}
+
+void HelloWorld::playerWin(int player)
+{
+    if (player == 1) {
+        _winnerflag= CCSprite::create("player1win.png");
+        _winnerflag->setPosition(ccp(_screenSize.width * 0.5, _screenSize.height * 0.5));
+        this->addChild(_winnerflag,1);
+        _winnerflag->setVisible(true);
+    }
+    else{
+        _winnerflag= CCSprite::create("player2win.png");
+        _winnerflag->setPosition(ccp(_screenSize.width * 0.5, _screenSize.height * 0.5));
+        this->addChild(_winnerflag,1);
+        _winnerflag->setVisible(true);
+    }
+    
+    _gameState = kMatchOver;
+
+}
+
+void HelloWorld::resetGame()
+{
+    if (_gameState == kMatchNew) {
+        for (int i = 0; i<2; i++) {
+            Player* player = (Player*)_players->objectAtIndex(i);
+            player->setScore(0);
+        }
+        _player1ScoreLabel->setString("0");
+        _player2ScoreLabel->setString("0");
+        
+        _winnerflag->setVisible(false);
+        this->removeChild(_winnerflag);
+    }
+    
+    //move players to original position
+    for (int p = 0; p < _players->count(); p++) {
+        Player* ply = (Player*)_players->objectAtIndex(p);
+        ply->setSpritePosition(ccp(_screenSize.width/2, p==0?ply->getContentSize().height *2:_screenSize.height - ply->getContentSize().height *2));
         //clear current touches
         ply->setTouch(NULL);
     }
+    _ball->setVisible(true);
+    _ball->setSpritePosition(ccp(_screenSize.width/2,_screenSize.height/2));
+    _ball->getBody()->SetLinearVelocity(b2Vec2(0,0));
+    _startflag->setVisible(true);
+    _gameState = kGameReady;
+
 }
