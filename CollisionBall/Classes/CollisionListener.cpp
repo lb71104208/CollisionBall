@@ -28,25 +28,24 @@ void CollisionListener::BeginContact(b2Contact* contact) {
         
         //track collision between balls and pockets
         if (spriteA->getType() == kSpriteBaseline) {
-            spriteB->setVisible(false);
-            if (spriteA->getPosition().y < _game->getContentSize().height/2) {
+            if (spriteB->getPosition().y > _game->getScreenSize().height/2) {
                 _game->playerScore(kPlayer2Tag);
             }
             else
             {
                 _game->playerScore(kPlayer1Tag);
             }
+            spriteB->setVisible(false);
         
         } else if (spriteB->getType() == kSpriteBaseline) {
-            spriteA->setVisible(false);
-            if (spriteB->getPosition().y < _game->getContentSize().height/2) {
+            if (spriteA->getPosition().y > _game->getScreenSize().height/2) {
                 _game->playerScore(kPlayer2Tag);
             }
             else
             {
                 _game->playerScore(kPlayer1Tag);
             }
-        
+            spriteA->setVisible(false);
         }
         else if ((spriteA->getType() == kSpriteBall &&
                     spriteB->getType() == kSpritePlayer) ||

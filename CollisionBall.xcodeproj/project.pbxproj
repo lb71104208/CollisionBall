@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D984F461834C6DD008A59A3 /* item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D984F441834C6DD008A59A3 /* item.cpp */; };
 		8D990172182FC9A1009D6C5C /* hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D990170182FC9A1009D6C5C /* hit.wav */; };
 		8D990173182FC9A1009D6C5C /* score.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D990171182FC9A1009D6C5C /* score.wav */; };
 		8DB0D89D1829ED2800061CFF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB0D89C1829ED2800061CFF /* QuartzCore.framework */; };
@@ -309,6 +310,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8D984F441834C6DD008A59A3 /* item.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = item.cpp; sourceTree = "<group>"; };
+		8D984F451834C6DD008A59A3 /* item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = item.h; sourceTree = "<group>"; };
 		8D990170182FC9A1009D6C5C /* hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = hit.wav; path = Resources/hit.wav; sourceTree = "<group>"; };
 		8D990171182FC9A1009D6C5C /* score.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = score.wav; path = Resources/score.wav; sourceTree = "<group>"; };
 		8DB0D8991829ED2800061CFF /* CollisionBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CollisionBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2233,6 +2236,8 @@
 				8DB0DC711829ED2F00061CFF /* AppDelegate.cpp */,
 				8DB0DC731829ED2F00061CFF /* HelloWorldScene.h */,
 				8DB0DC741829ED2F00061CFF /* HelloWorldScene.cpp */,
+				8D984F441834C6DD008A59A3 /* item.cpp */,
+				8D984F451834C6DD008A59A3 /* item.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2465,6 +2470,7 @@
 				8DB0DB5D1829ED2D00061CFF /* CCScale9Sprite.cpp in Sources */,
 				8DB0DA651829ED2B00061CFF /* CCComponent.cpp in Sources */,
 				8DB0DA9C1829ED2C00061CFF /* CCTextureETC.cpp in Sources */,
+				8D984F461834C6DD008A59A3 /* item.cpp in Sources */,
 				8DB0DB271829ED2D00061CFF /* CCSpriteLoader.cpp in Sources */,
 				8DB0DC421829ED2F00061CFF /* b2DistanceJoint.cpp in Sources */,
 				8DB0D9661829ED2900061CFF /* mat4stack.c in Sources */,

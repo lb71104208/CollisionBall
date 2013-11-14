@@ -37,6 +37,7 @@ public:
     HelloWorld();
     
     CC_SYNTHESIZE(b2World*, _world, World);
+    CC_SYNTHESIZE(CCSize, _screenSize, ScreenSize) ;
     
     // returns a Scene that contains the HelloWorld as the only child
     static cocos2d::CCScene* scene();
@@ -65,8 +66,6 @@ private:
     CCSprite* _winnerflag;
     CCLabelTTF* _player1ScoreLabel;
     CCLabelTTF* _player2ScoreLabel;
-    
-    CCSize _screenSize;
     
     int _player1Score;
     int _player2Score;

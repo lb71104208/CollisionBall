@@ -18,9 +18,9 @@ HelloWorld::HelloWorld()
 
     _screenSize = CCDirector::sharedDirector()->getWinSize();
     
-//    CCSprite* bg =  CCSprite::create("court.png");
-//    bg->setPosition(ccp(_screenSize.width*0.5f, _screenSize.height*0.5f));
-//    this->addChild(bg);
+    CCSprite* bg =  CCSprite::create("bg.png");
+    bg->setPosition(ccp(_screenSize.width*0.5f, _screenSize.height*0.5f));
+    this->addChild(bg);
     
     _startflag= CCSprite::create("logo.png");
     _startflag->setPosition(ccp(_screenSize.width * 0.5, _screenSize.height * 0.5));
@@ -28,12 +28,12 @@ HelloWorld::HelloWorld()
     _startflag->setVisible(true);
     
     _player1ScoreLabel = CCLabelTTF::create("0", "Arial", 60);
-    _player1ScoreLabel->setPosition(ccp(_screenSize.width - 60, _screenSize.height * 0.5 - 80));
+    _player1ScoreLabel->setPosition(ccp(_screenSize.width - 60, _screenSize.height * 0.5 + 80));
     _player1ScoreLabel->setRotation(90);
     this->addChild(_player1ScoreLabel);
     
     _player2ScoreLabel = CCLabelTTF::create("0", "Arial", 60);
-    _player2ScoreLabel->setPosition(ccp(_screenSize.width - 60, _screenSize.height * 0.5 + 80));
+    _player2ScoreLabel->setPosition(ccp(_screenSize.width - 60, _screenSize.height * 0.5 - 80));
     _player2ScoreLabel->setRotation(90);
     this->addChild(_player2ScoreLabel);
 
@@ -97,7 +97,7 @@ void HelloWorld::initPhysics()
     b2Sprite* baselineData;
     for (int i = 0; i < 2; i++) {
         bodyDef.type = b2_staticBody;
-        edge.Set(b2Vec2(0.0f, i* _screenSize.height /PTM_RATIO),b2Vec2(_screenSize.width /PTM_RATIO,i*_screenSize.height/PTM_RATIO));
+        edge.Set(b2Vec2(0.0f, i==0?124.0f/PTM_RATIO:(_screenSize.height -124.0f)/PTM_RATIO),b2Vec2(_screenSize.width /PTM_RATIO,i==0?124.0f/PTM_RATIO:(_screenSize.height -124.0f)/PTM_RATIO));
         
         baseline = _world->CreateBody(&bodyDef);
         baseline->CreateFixture(&edge,0);
@@ -133,7 +133,7 @@ void HelloWorld::initPhysics()
     for (int i = 0 ; i<2; i++) {
         player = Player::create(this);
         
-        player->setSpritePosition(ccp(_screenSize.width/2, i==0?player->getContentSize().height *2:_screenSize.height - player->getContentSize().height *2));
+        player->setSpritePosition(ccp(_screenSize.width/2, i==0?player->getContentSize().height *5:_screenSize.height - player->getContentSize().height *5));
         player->getBody()->SetTransform(player->getBody()->GetPosition(), M_PI*0.5);
         this->addChild(player);
         _players->addObject(player);
@@ -330,12 +330,12 @@ void HelloWorld::playerScore (int player) {
     char score_buffer[10];
     Player* winner;
     //if player 1 scored...
-    if (player == 1) {
+    if (player == kPlayer1Tag) {
         winner = (Player*)_players->objectAtIndex(0);
         winner->setScore(winner->getScore()+1);
         sprintf(score_buffer,"%i", winner->getScore());
+        //sprintf(score_buffer,"%s", "哈哈哈");
         _player1ScoreLabel->setString(score_buffer);
-
     }
     //if player 2 scored...
     else
@@ -396,7 +396,7 @@ void HelloWorld::resetGame()
     //move players to original position
     for (int p = 0; p < _players->count(); p++) {
         Player* ply = (Player*)_players->objectAtIndex(p);
-        ply->setSpritePosition(ccp(_screenSize.width/2, p==0?ply->getContentSize().height *2:_screenSize.height - ply->getContentSize().height *2));
+        ply->setSpritePosition(ccp(_screenSize.width/2, p==0?ply->getContentSize().height *5:_screenSize.height - ply->getContentSize().height *5));
         //clear current touches
         ply->setTouch(NULL);
     }
