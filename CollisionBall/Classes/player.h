@@ -15,6 +15,7 @@ public:
     CC_SYNTHESIZE(int, _score, Score);
     CC_SYNTHESIZE(CCTouch *, _touch, Touch);
     static Player* create(HelloWorld * game);
+    void Scale(float rate);
     //virtual void setPosition(const CCPoint& pos);
 private:
     void initPlayer();

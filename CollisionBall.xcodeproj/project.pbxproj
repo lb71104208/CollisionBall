@@ -10,6 +10,9 @@
 		8D984F461834C6DD008A59A3 /* item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D984F441834C6DD008A59A3 /* item.cpp */; };
 		8D990172182FC9A1009D6C5C /* hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D990170182FC9A1009D6C5C /* hit.wav */; };
 		8D990173182FC9A1009D6C5C /* score.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D990171182FC9A1009D6C5C /* score.wav */; };
+		8DA71E5D1838A40E00134948 /* CCLabelTTFLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0DB001829ED2D00061CFF /* CCLabelTTFLoader.cpp */; };
+		8DA71E5E1838A44D00134948 /* CCTMXObjectGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0DAAB1829ED2C00061CFF /* CCTMXObjectGroup.cpp */; };
+		8DA71E601838A64000134948 /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DA71E5A1838A19E00134948 /* GameManager.cpp */; };
 		8DB0D89D1829ED2800061CFF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB0D89C1829ED2800061CFF /* QuartzCore.framework */; };
 		8DB0D89F1829ED2800061CFF /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB0D89E1829ED2800061CFF /* OpenGLES.framework */; };
 		8DB0D8A11829ED2800061CFF /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB0D8A01829ED2800061CFF /* OpenAL.framework */; };
@@ -161,7 +164,6 @@
 		8DB0DAA31829ED2C00061CFF /* CCParallaxNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0DAA21829ED2C00061CFF /* CCParallaxNode.cpp */; };
 		8DB0DAA61829ED2C00061CFF /* CCTileMapAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0DAA51829ED2C00061CFF /* CCTileMapAtlas.cpp */; };
 		8DB0DAA91829ED2C00061CFF /* CCTMXLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0DAA81829ED2C00061CFF /* CCTMXLayer.cpp */; };
-		8DB0DAAC1829ED2C00061CFF /* CCTMXObjectGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0DAAB1829ED2C00061CFF /* CCTMXObjectGroup.cpp */; };
 		8DB0DAAF1829ED2C00061CFF /* CCTMXTiledMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0DAAE1829ED2C00061CFF /* CCTMXTiledMap.cpp */; };
 		8DB0DAB21829ED2C00061CFF /* CCTMXXMLParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0DAB11829ED2C00061CFF /* CCTMXXMLParser.cpp */; };
 		8DB0DAB61829ED2C00061CFF /* CCTouch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0DAB51829ED2C00061CFF /* CCTouch.cpp */; };
@@ -185,7 +187,6 @@
 		8DB0DAF81829ED2D00061CFF /* CCControlLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0DAF71829ED2D00061CFF /* CCControlLoader.cpp */; };
 		8DB0DAFB1829ED2D00061CFF /* CCData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0DAFA1829ED2D00061CFF /* CCData.cpp */; };
 		8DB0DAFE1829ED2D00061CFF /* CCLabelBMFontLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0DAFD1829ED2D00061CFF /* CCLabelBMFontLoader.cpp */; };
-		8DB0DB011829ED2D00061CFF /* CCLabelTTFLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0DB001829ED2D00061CFF /* CCLabelTTFLoader.cpp */; };
 		8DB0DB041829ED2D00061CFF /* CCLayerColorLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0DB031829ED2D00061CFF /* CCLayerColorLoader.cpp */; };
 		8DB0DB071829ED2D00061CFF /* CCLayerGradientLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0DB061829ED2D00061CFF /* CCLayerGradientLoader.cpp */; };
 		8DB0DB0A1829ED2D00061CFF /* CCLayerLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0DB091829ED2D00061CFF /* CCLayerLoader.cpp */; };
@@ -314,6 +315,8 @@
 		8D984F451834C6DD008A59A3 /* item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = item.h; sourceTree = "<group>"; };
 		8D990170182FC9A1009D6C5C /* hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = hit.wav; path = Resources/hit.wav; sourceTree = "<group>"; };
 		8D990171182FC9A1009D6C5C /* score.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = score.wav; path = Resources/score.wav; sourceTree = "<group>"; };
+		8DA71E591838A19E00134948 /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
+		8DA71E5A1838A19E00134948 /* GameManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameManager.cpp; sourceTree = "<group>"; };
 		8DB0D8991829ED2800061CFF /* CollisionBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CollisionBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DB0D89C1829ED2800061CFF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8DB0D89E1829ED2800061CFF /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -2222,6 +2225,8 @@
 		8DB0DC6F1829ED2F00061CFF /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				8DA71E591838A19E00134948 /* GameManager.h */,
+				8DA71E5A1838A19E00134948 /* GameManager.cpp */,
 				8DB0DC8D182A223A00061CFF /* GLES-Render.cpp */,
 				8DB0DC8E182A223A00061CFF /* GLES-Render.h */,
 				8DB0DC81182A09E700061CFF /* b2Sprite.cpp */,
@@ -2320,8 +2325,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DB0DAAC1829ED2C00061CFF /* CCTMXObjectGroup.cpp in Sources */,
-				8DB0DB011829ED2D00061CFF /* CCLabelTTFLoader.cpp in Sources */,
+				8DA71E5E1838A44D00134948 /* CCTMXObjectGroup.cpp in Sources */,
+				8DA71E5D1838A40E00134948 /* CCLabelTTFLoader.cpp in Sources */,
 				8DB0DABD1829ED2C00061CFF /* CCTouchHandler.cpp in Sources */,
 				8DB0DAF21829ED2D00061CFF /* CCBValue.cpp in Sources */,
 				8DB0D8FA1829ED2800061CFF /* CCAtlasNode.cpp in Sources */,
@@ -2373,6 +2378,7 @@
 				8DB0DBC71829ED2E00061CFF /* SkeletonJson.cpp in Sources */,
 				8DB0DAF51829ED2D00061CFF /* CCControlButtonLoader.cpp in Sources */,
 				8DB0DAB21829ED2C00061CFF /* CCTMXXMLParser.cpp in Sources */,
+				8DA71E601838A64000134948 /* GameManager.cpp in Sources */,
 				8DB0DB071829ED2D00061CFF /* CCLayerGradientLoader.cpp in Sources */,
 				8DB0DA341829ED2B00061CFF /* CCShaderCache.cpp in Sources */,
 				8DB0D8E71829ED2800061CFF /* CCActionInterval.cpp in Sources */,

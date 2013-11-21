@@ -23,6 +23,10 @@ enum {
     kSpriteBaseline
 };
 
+enum ITEMS {
+    kItemShorten = 3
+};
+
 using namespace cocos2d;
 
 class b2Sprite : public CCSprite {

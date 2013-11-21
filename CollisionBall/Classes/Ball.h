@@ -21,9 +21,10 @@ public:
     virtual void reset(void);
     virtual void update (float dt);
 private:
-    void initBall();
-    CCPoint _startPosition;
-
+        CCPoint _startPosition;
+protected:
+    void initBallWithFile(const char* pszFilename);
+    
 };
 
 #endif /* defined(__MiniPool__Ball__) */

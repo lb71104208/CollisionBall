@@ -11,6 +11,8 @@
 using namespace cocos2d;
 using namespace CocosDenshion;
 
+static int param = 1;
+
 HelloWorld::HelloWorld()
 {
     setTouchEnabled( true );
@@ -36,7 +38,9 @@ HelloWorld::HelloWorld()
     _player2ScoreLabel->setPosition(ccp(_screenSize.width - 60, _screenSize.height * 0.5 - 80));
     _player2ScoreLabel->setRotation(90);
     this->addChild(_player2ScoreLabel);
-
+    
+    _gameManager = new GameManager(this);
+    _gameManager->init();
     // init physics
     this->initPhysics();
     setTouchEnabled( true );
@@ -54,11 +58,15 @@ HelloWorld::~HelloWorld()
     delete _world;
     _world = NULL;
     
+    delete _gameManager;
+    _gameManager = NULL;
+    
     delete m_debugDraw;
     delete _collisionListener;
     
     CC_SAFE_RELEASE(_players);
     CC_SAFE_RELEASE(_baselines);
+    CC_SAFE_RELEASE(_items);
     //delete m_debugDraw;
 }
 
@@ -94,6 +102,7 @@ void HelloWorld::initPhysics()
 
     b2Body * baseline;
     b2EdgeShape edge;
+    
     b2Sprite* baselineData;
     for (int i = 0; i < 2; i++) {
         bodyDef.type = b2_staticBody;
@@ -133,12 +142,15 @@ void HelloWorld::initPhysics()
     for (int i = 0 ; i<2; i++) {
         player = Player::create(this);
         
-        player->setSpritePosition(ccp(_screenSize.width/2, i==0?player->getContentSize().height *5:_screenSize.height - player->getContentSize().height *5));
+        player->setSpritePosition(ccp(_screenSize.width/2, i==1?player->getContentSize().height *5:_screenSize.height - player->getContentSize().height *5));
         player->getBody()->SetTransform(player->getBody()->GetPosition(), M_PI*0.5);
         this->addChild(player);
         _players->addObject(player);
 
     }
+    
+    _items = CCArray::createWithCapacity(3);
+    _items->retain();
 }
 //
 void HelloWorld::draw()
@@ -174,6 +186,8 @@ void HelloWorld::update(float dt)
         return;
     }
     
+    _gameManager->produceItems();
+    
     int velocityIterations = 10;
     int positionIterations = 20;
     
@@ -196,6 +210,24 @@ void HelloWorld::update(float dt)
        Player* player = (Player *) _players->objectAtIndex(p);
         //player->setPosition(player->getNextPosition());
         player->update(dt);
+    }
+    
+    //track invisible objects
+    int count = _items->count();
+    Item * item;
+    
+    for (int i = 0; i < count; i++) {
+        
+        item = (Item *) _items->objectAtIndex(i);
+        
+        if (!item->isVisible()) {
+            
+            item->hide();
+            _items->removeObject(item);
+        } else {
+            
+            item->update(dt);
+        }
     }
 
 }
@@ -385,6 +417,7 @@ void HelloWorld::resetGame()
         for (int i = 0; i<2; i++) {
             Player* player = (Player*)_players->objectAtIndex(i);
             player->setScore(0);
+            player->Scale(1.0f);
         }
         _player1ScoreLabel->setString("0");
         _player2ScoreLabel->setString("0");
@@ -396,7 +429,7 @@ void HelloWorld::resetGame()
     //move players to original position
     for (int p = 0; p < _players->count(); p++) {
         Player* ply = (Player*)_players->objectAtIndex(p);
-        ply->setSpritePosition(ccp(_screenSize.width/2, p==0?ply->getContentSize().height *5:_screenSize.height - ply->getContentSize().height *5));
+        ply->setSpritePosition(ccp(_screenSize.width/2, p==1?ply->getContentSize().height *5:_screenSize.height - ply->getContentSize().height *5));
         //clear current touches
         ply->setTouch(NULL);
     }
@@ -404,6 +437,70 @@ void HelloWorld::resetGame()
     _ball->setSpritePosition(ccp(_screenSize.width/2,_screenSize.height/2));
     _ball->getBody()->SetLinearVelocity(b2Vec2(0,0));
     _startflag->setVisible(true);
+    
+    for (int i=0; i<_items->count(); i++) {
+        Item* item = (Item*)_items->objectAtIndex(i);
+        _world->DestroyBody(item->getBody());
+        item->setVisible(false);
+        this->removeChild(item);
+    }
+    _items->removeAllObjects();
+    _gameManager->init();
+    param = 1;
     _gameState = kGameReady;
+    
+}
 
+void HelloWorld::initItem(int type)
+{
+    srand(time(0));
+    int x = rand() % (int) (_screenSize.width * 0.8f) + _screenSize.width * 0.1f;
+    int y = rand() % (int) ((_screenSize.height - 2*124.0f) * 0.8f) + 124.0f;
+    CCPoint appearPosition = CCPoint(x, y);
+    
+    switch (type) {
+        case kItemShorten:
+        {
+            Item* itemShorten = Item::create(this,kItemShorten,appearPosition,5.0f);
+            this->addChild(itemShorten,1,kItemShorten);
+            _items->addObject(itemShorten);
+            itemShorten->getBody()->ApplyLinearImpulse(b2Vec2(x/10,y/10), itemShorten->getBody()->GetWorldCenter());
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+void HelloWorld::applyEffects(int itemType,int playerTag, Item* item)
+{
+    switch (itemType) {
+        case kItemShorten:
+        {
+            Player* affectplayer;
+            if (playerTag == kPlayer1Tag) {
+                affectplayer = (Player*)_players->objectAtIndex(kPlayer2Tag);
+            }
+            else
+            {
+                affectplayer = (Player*)_players->objectAtIndex(kPlayer1Tag);
+            }
+            
+            if (param < 4) {
+                    affectplayer->Scale(1.0f - 0.2f * param);
+                    param ++;
+                }
+            
+            //_world->DestroyBody(item->getBody());
+            item->setVisible(false);
+            //this->removeChild(item);
+            //_items->removeObject(item);
+            _gameManager->resetItem(kItemShorten);
+        }
+            break;
+            
+        default:
+            break;
+    }
 }

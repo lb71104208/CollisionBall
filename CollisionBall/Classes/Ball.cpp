@@ -20,7 +20,19 @@ Ball::Ball (HelloWorld * game, int type, CCPoint position) : b2Sprite (game, typ
 Ball* Ball::create(HelloWorld * game, int type, CCPoint position) {
     Ball * sprite = new Ball(game, type, position);
 	if (sprite) {
-        sprite->initBall();
+        switch (type) {
+            case kSpriteBall:
+                sprite->initBallWithFile("ball.png");
+                break;
+            
+            case kItemShorten:
+                sprite->initBallWithFile("itemshtn.png");
+                break;
+                
+            default:
+                break;
+        }
+        
 		sprite->autorelease();
 		return sprite;
 	}
@@ -28,8 +40,8 @@ Ball* Ball::create(HelloWorld * game, int type, CCPoint position) {
 	return NULL;
 }
 
-void Ball::initBall() {
-    this->initWithFile("ball.png");
+void Ball::initBallWithFile(const char* pszFilename) {
+    this->initWithFile(pszFilename);
 
     //create box2d body
     b2BodyDef bodyDef;

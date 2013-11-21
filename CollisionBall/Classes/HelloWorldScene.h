@@ -16,7 +16,11 @@
 #include "Ball.h"
 #include "player.h"
 #include "CollisionListener.h"
+#include "GameManager.h"
+#include "item.h"
+
 using namespace cocos2d;
+class Item;
 
 enum  {
     kPlayer1Tag,
@@ -51,6 +55,8 @@ public:
     void update(float dt);
     void playerScore (int player);
     void playerWin (int player);
+    void initItem(int type);
+    void applyEffects(int itemType, int playerTag, Item* item);
 
 private:
     
@@ -60,12 +66,14 @@ private:
     CCTouch *_touch;
     CCArray* _baselines;
     CCArray* _players;
-    
+    CCArray* _items;
     Ball* _ball;
     CCSprite* _startflag;
     CCSprite* _winnerflag;
     CCLabelTTF* _player1ScoreLabel;
     CCLabelTTF* _player2ScoreLabel;
+    
+    GameManager* _gameManager;
     
     int _player1Score;
     int _player2Score;

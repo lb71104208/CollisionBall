@@ -50,3 +50,8 @@ void Player::initPlayer() {
     
 }
 
+void Player::Scale(float rate)
+{
+    this->setScale(rate);
+    ((b2PolygonShape*)this->getBody()->GetFixtureList()->GetShape())->SetAsBox(this->boundingBox().size.height/2 /PTM_RATIO, this->boundingBox().size.width/2/ PTM_RATIO);
+}
