@@ -28,7 +28,7 @@ void Player::initPlayer() {
     
     _body = _game->getWorld()->CreateBody(&bodyDef);
     _body->SetSleepingAllowed(true);
-    _body->SetLinearDamping(1.2);
+    _body->SetLinearDamping(0.0);
     _body->SetAngularDamping(0.8);
     _body->SetBullet(true);
     
@@ -52,6 +52,6 @@ void Player::initPlayer() {
 
 void Player::Scale(float rate)
 {
-    this->setScale(rate);
+    this->setScaleX(rate);
     ((b2PolygonShape*)this->getBody()->GetFixtureList()->GetShape())->SetAsBox(this->boundingBox().size.height/2 /PTM_RATIO, this->boundingBox().size.width/2/ PTM_RATIO);
 }

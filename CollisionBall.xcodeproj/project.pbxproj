@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D1E0220183F3205006B4CC6 /* itemManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E021E183F3205006B4CC6 /* itemManager.cpp */; };
 		8D984F461834C6DD008A59A3 /* item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D984F441834C6DD008A59A3 /* item.cpp */; };
 		8D990172182FC9A1009D6C5C /* hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D990170182FC9A1009D6C5C /* hit.wav */; };
 		8D990173182FC9A1009D6C5C /* score.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D990171182FC9A1009D6C5C /* score.wav */; };
@@ -311,6 +312,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8D1E021E183F3205006B4CC6 /* itemManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = itemManager.cpp; path = Classes/itemManager.cpp; sourceTree = "<group>"; };
+		8D1E021F183F3205006B4CC6 /* itemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = itemManager.h; path = Classes/itemManager.h; sourceTree = "<group>"; };
 		8D984F441834C6DD008A59A3 /* item.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = item.cpp; sourceTree = "<group>"; };
 		8D984F451834C6DD008A59A3 /* item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = item.h; sourceTree = "<group>"; };
 		8D990170182FC9A1009D6C5C /* hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = hit.wav; path = Resources/hit.wav; sourceTree = "<group>"; };
@@ -2243,6 +2246,8 @@
 				8DB0DC741829ED2F00061CFF /* HelloWorldScene.cpp */,
 				8D984F441834C6DD008A59A3 /* item.cpp */,
 				8D984F451834C6DD008A59A3 /* item.h */,
+				8D1E021E183F3205006B4CC6 /* itemManager.cpp */,
+				8D1E021F183F3205006B4CC6 /* itemManager.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2445,6 +2450,7 @@
 				8DB0D8E11829ED2800061CFF /* CCActionGrid3D.cpp in Sources */,
 				8DB0DB141829ED2D00061CFF /* CCNode+CCBRelativePositioning.cpp in Sources */,
 				8DB0DA8C1829ED2C00061CFF /* CCIMEDispatcher.cpp in Sources */,
+				8D1E0220183F3205006B4CC6 /* itemManager.cpp in Sources */,
 				8DB0D9351829ED2900061CFF /* cocos2d.cpp in Sources */,
 				8DB0DC641829ED2F00061CFF /* b2Rope.cpp in Sources */,
 				8DB0D9381829ED2900061CFF /* CCDrawingPrimitives.cpp in Sources */,

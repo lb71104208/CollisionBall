@@ -11,57 +11,72 @@
 
 GameManager::~GameManager()
 {
-    
+    CC_SAFE_RELEASE(_managers);
 }
 
 GameManager::GameManager(HelloWorld* game)
 {
     _game = game;
+    _managers = CCArray::createWithCapacity(NOOFITEMTYPES);
+    _managers->retain();
 }
-
 
 
 void GameManager::init()
 {
     srand(time(0));
-    appearingItemsMap.clear();
-    appearingItemsMap.insert(map<int, int> :: value_type(kItemShorten,0));
+   
+    
+    for (int i=0; i<=NOOFITEMTYPES; i++) {
+        int type = i + 3;
+        itemManager* item = new itemManager(type);
+        _managers->addObject(item);
+    }
     
 }
 
-void GameManager::produceItems()
+void GameManager::produceItemsByType(uint nType)
 {
-    int i = 0 + rand()%100;
   //  printf("%d ",i);
-    if (i<5) {
-        map<int,int >::iterator it= appearingItemsMap.find(kItemShorten);
-        int flag = it->second;
-        if (flag == 0) {
-            _game->initItem(kItemShorten);
-            it->second = 1;
-        }
-        
-    }
-    else
-    {
-        return;
-    }
-}
-
-void GameManager::resetItem(int type)
-{
-    srand(time(0));
-    switch (type) {
+    switch (nType) {
         case kItemShorten:
         {
-            map<int,int >::iterator it= appearingItemsMap.find(kItemShorten);
-            it->second = 0;
+            int i = 0 + rand()%100;
+            if (i<5) {
+                _game->initItem(kItemShorten);
+            }
+            else
+            {
+                return;
+            }
+
         }
             break;
             
         default:
             break;
     }
+   }
+
+void GameManager::update(float dt)
+{
+    itemManager* itemmanager;
+    
+    for (int i = 0; i<NOOFITEMTYPES; i++) {
+        itemmanager = (itemManager*)_managers->objectAtIndex(i);
+        itemmanager->update(dt);
+        if (itemmanager->getState() == kItemCanProduce) {
+            this->produceItemsByType(i+2);
+        }
+    }
+
+}
+
+void GameManager::resetItem(int type)
+{
+    itemManager*  itemmanager = (itemManager*)_managers->objectAtIndex(type -3);
+    itemmanager->setState(kItemCanNotProduce);
+    srand(time(0));
 }
 
 

@@ -62,8 +62,8 @@ void Ball::initBallWithFile(const char* pszFilename) {
     //define fixture
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &circle;
-    fixtureDef.density = 1;
-    fixtureDef.restitution = 0.7;
+    fixtureDef.density = 0.8;
+    fixtureDef.restitution = 1;
     
     _body->CreateFixture(&fixtureDef);
     _body->SetUserData(this);

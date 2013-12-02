@@ -186,7 +186,7 @@ void HelloWorld::update(float dt)
         return;
     }
     
-    _gameManager->produceItems();
+    _gameManager->produceItems(dt);
     
     int velocityIterations = 10;
     int positionIterations = 20;

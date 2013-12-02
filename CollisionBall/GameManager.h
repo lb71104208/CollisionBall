@@ -13,8 +13,12 @@
 #include "cocos2d.h"
 #include "b2Sprite.h"
 #include <map>
+#include "itemManager.h"
+
+#define NOOFITEMTYPES 1
 using namespace std;
 class HelloWorld;
+class itemManager;
 
 class GameManager:public cocos2d::CCObject {
     
@@ -23,12 +27,13 @@ public:
     GameManager(HelloWorld* game);
     static HelloWorld* managedGame();
     void init();
-    void produceItems();
+    void produceItemsByType(uint nType);
+    void update(float dt);
     CC_SYNTHESIZE(HelloWorld*, _game, Game);
     void resetItem(int type);
     
 private:
-    map<int, int> appearingItemsMap;     //0没出现 1正在出现
+    CCArray* _managers;
 };
 
 #endif /* defined(__CollisionBall__GameManager__) */
