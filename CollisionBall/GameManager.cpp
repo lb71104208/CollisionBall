@@ -37,6 +37,7 @@ void GameManager::init()
 
 void GameManager::produceItemsByType(uint nType)
 {
+    itemManager* itemmgr;
   //  printf("%d ",i);
     switch (nType) {
         case kItemShorten:
@@ -44,6 +45,8 @@ void GameManager::produceItemsByType(uint nType)
             int i = 0 + rand()%100;
             if (i<5) {
                 _game->initItem(kItemShorten);
+                itemmgr = (itemManager*) _managers->objectAtIndex(nType -3);
+                itemmgr->setState(kITemDisplaying);
             }
             else
             {
@@ -66,7 +69,7 @@ void GameManager::update(float dt)
         itemmanager = (itemManager*)_managers->objectAtIndex(i);
         itemmanager->update(dt);
         if (itemmanager->getState() == kItemCanProduce) {
-            this->produceItemsByType(i+2);
+            this->produceItemsByType(i+3);
         }
     }
 

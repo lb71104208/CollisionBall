@@ -186,7 +186,7 @@ void HelloWorld::update(float dt)
         return;
     }
     
-    _gameManager->produceItems(dt);
+    _gameManager->update(dt);
     
     int velocityIterations = 10;
     int positionIterations = 20;
@@ -413,12 +413,8 @@ void HelloWorld::playerWin(int player)
 
 void HelloWorld::resetGame()
 {
+    
     if (_gameState == kMatchNew) {
-        for (int i = 0; i<2; i++) {
-            Player* player = (Player*)_players->objectAtIndex(i);
-            player->setScore(0);
-            player->Scale(1.0f);
-        }
         _player1ScoreLabel->setString("0");
         _player2ScoreLabel->setString("0");
         
@@ -430,6 +426,9 @@ void HelloWorld::resetGame()
     for (int p = 0; p < _players->count(); p++) {
         Player* ply = (Player*)_players->objectAtIndex(p);
         ply->setSpritePosition(ccp(_screenSize.width/2, p==1?ply->getContentSize().height *5:_screenSize.height - ply->getContentSize().height *5));
+        ply->setScore(0);
+        ply->Scale(1.0f);
+
         //clear current touches
         ply->setTouch(NULL);
     }
@@ -445,7 +444,7 @@ void HelloWorld::resetGame()
         this->removeChild(item);
     }
     _items->removeAllObjects();
-    _gameManager->init();
+    //_gameManager->init();
     param = 1;
     _gameState = kGameReady;
     

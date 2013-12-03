@@ -18,7 +18,7 @@ itemManager::itemManager(int type)
     switch (type) {
         case kItemShorten:
         {
-            m_delta = 2.5f;
+            m_delta = 1.5f;
         }
             break;
             
