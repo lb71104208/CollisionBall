@@ -55,3 +55,12 @@ void Player::Scale(float rate)
     this->setScaleX(rate);
     ((b2PolygonShape*)this->getBody()->GetFixtureList()->GetShape())->SetAsBox(this->boundingBox().size.height/2 /PTM_RATIO, this->boundingBox().size.width/2/ PTM_RATIO);
 }
+
+void Player::update(cocos2d::CCPoint direction, float velocity)
+{
+    
+    if (_body && isVisible()) {
+        setPositionX(_body->GetPosition().x * PTM_RATIO);
+        setPositionY(_body->GetPosition().y * PTM_RATIO);
+    }
+}

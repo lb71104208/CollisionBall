@@ -16,6 +16,7 @@ public:
     CC_SYNTHESIZE(CCTouch *, _touch, Touch);
     static Player* create(HelloWorld * game);
     void Scale(float rate);
+    virtual void update (CCPoint direction, float velocity);
     //virtual void setPosition(const CCPoint& pos);
 private:
     void initPlayer();

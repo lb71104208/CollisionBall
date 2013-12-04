@@ -39,6 +39,20 @@ HelloWorld::HelloWorld()
     _player2ScoreLabel->setRotation(90);
     this->addChild(_player2ScoreLabel);
     
+    _playerControllers = CCArray::createWithCapacity(2);
+    _playerControllers->retain();
+    
+    
+
+    for (int i = 0 ; i<2; i++) {
+        CCSprite *spRocker= CCSprite::create("js.png");//摇杆
+        CCSprite *spRockerBG=CCSprite::create("jsbg.png");//摇杆背景
+        
+        HRocker* joystick = HRocker::HRockerWithCenter(ccp(50, i ==0?50:_screenSize.height-50), 20.0f, spRocker, spRockerBG, false);
+        this->addChild(joystick);
+        _playerControllers->addObject(joystick);
+            }
+
     _gameManager = new GameManager(this);
     _gameManager->init();
     // init physics
@@ -205,11 +219,14 @@ void HelloWorld::update(float dt)
     //_world->Step(dt, velocityIterations, positionIterations);
    
     _ball->update(dt);
+    
+    
+    
     for (int p = 0; p < _players->count(); p++) {
         
        Player* player = (Player *) _players->objectAtIndex(p);
         //player->setPosition(player->getNextPosition());
-        player->update(dt);
+        //player->update(dt);
     }
     
     //track invisible objects
@@ -417,7 +434,11 @@ void HelloWorld::resetGame()
     if (_gameState == kMatchNew) {
         _player1ScoreLabel->setString("0");
         _player2ScoreLabel->setString("0");
-        
+        for (int p = 0; p < _players->count(); p++) {
+            Player* ply = (Player*)_players->objectAtIndex(p);
+            ply->setScore(0);
+           
+        }
         _winnerflag->setVisible(false);
         this->removeChild(_winnerflag);
     }
@@ -426,7 +447,6 @@ void HelloWorld::resetGame()
     for (int p = 0; p < _players->count(); p++) {
         Player* ply = (Player*)_players->objectAtIndex(p);
         ply->setSpritePosition(ccp(_screenSize.width/2, p==1?ply->getContentSize().height *5:_screenSize.height - ply->getContentSize().height *5));
-        ply->setScore(0);
         ply->Scale(1.0f);
 
         //clear current touches

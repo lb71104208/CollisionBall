@@ -109,6 +109,7 @@ HRocker* HRocker::initWithCenter(CCPoint aPoint ,float aRadius ,CCSprite* aJsSpr
     jsSprite->setPosition(centerPoint);
     aJsBg->setPosition(centerPoint);
     aJsBg->setTag(88);
+    
     this->addChild(aJsBg);
     this->addChild(jsSprite);
     if(isFollowRole){

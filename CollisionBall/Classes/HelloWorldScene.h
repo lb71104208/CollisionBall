@@ -18,6 +18,7 @@
 #include "CollisionListener.h"
 #include "GameManager.h"
 #include "item.h"
+#include "HRocker.h"
 
 using namespace cocos2d;
 class Item;
@@ -68,6 +69,7 @@ private:
     CCArray* _baselines;
     CCArray* _players;
     CCArray* _items;
+    CCArray* _playerControllers;
     Ball* _ball;
     CCSprite* _startflag;
     CCSprite* _winnerflag;
