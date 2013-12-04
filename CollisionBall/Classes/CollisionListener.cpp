@@ -30,11 +30,11 @@ void CollisionListener::BeginContact(b2Contact* contact) {
         if (spriteA->getType() == kSpriteBaseline) {
             if (spriteB->getType() == kSpriteBall) {
                 if (spriteB->getPosition().y > _game->getScreenSize().height/2) {
-                    _game->playerScore(kPlayer2Tag);
+                    //_game->playerScore(kPlayer2Tag);
                 }
                 else
                 {
-                    _game->playerScore(kPlayer1Tag);
+                    //_game->playerScore(kPlayer1Tag);
                 }
                 spriteB->setVisible(false);
             }
@@ -56,11 +56,11 @@ void CollisionListener::BeginContact(b2Contact* contact) {
             
             if (spriteA->getType() == kSpriteBall) {
                 if (spriteA->getPosition().y > _game->getScreenSize().height/2) {
-                    _game->playerScore(kPlayer2Tag);
+                    //_game->playerScore(kPlayer2Tag);
                 }
                 else
                 {
-                    _game->playerScore(kPlayer1Tag);
+                   // _game->playerScore(kPlayer1Tag);
                 }
                 spriteA->setVisible(false);
             }

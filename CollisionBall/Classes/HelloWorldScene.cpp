@@ -48,7 +48,7 @@ HelloWorld::HelloWorld()
         CCSprite *spRocker= CCSprite::create("js.png");//摇杆
         CCSprite *spRockerBG=CCSprite::create("jsbg.png");//摇杆背景
         
-        HRocker* joystick = HRocker::HRockerWithCenter(ccp(50, i ==0?50:_screenSize.height-50), 20.0f, spRocker, spRockerBG, false);
+        HRocker* joystick = HRocker::HRockerWithCenter(ccp(i ==1?60:_screenSize.width-60, i ==1?60:_screenSize.height-60), 20.0f, spRocker, spRockerBG, false);
         this->addChild(joystick);
         _playerControllers->addObject(joystick);
             }
@@ -223,10 +223,12 @@ void HelloWorld::update(float dt)
     
     
     for (int p = 0; p < _players->count(); p++) {
-        
+        HRocker* joystick = (HRocker*)_playerControllers->objectAtIndex(p);
+        float velocity = joystick->getVelocity();
+        CCPoint direction = joystick->getDirection();
        Player* player = (Player *) _players->objectAtIndex(p);
         //player->setPosition(player->getNextPosition());
-        //player->update(dt);
+        player->update(direction, velocity);
     }
     
     //track invisible objects
@@ -324,7 +326,7 @@ void HelloWorld::ccTouchesMoved(cocos2d::CCSet *pTouches, cocos2d::CCEvent *even
                             nextPosition.y = _screenSize.height * 0.5 + player->getContentSize().height/2;
                         }
                     }
-                    player->getBody()->SetTransform(b2Vec2(nextPosition.x/PTM_RATIO,nextPosition.y/PTM_RATIO),b2_pi/2 );
+                    //player->getBody()->SetTransform(b2Vec2(nextPosition.x/PTM_RATIO,nextPosition.y/PTM_RATIO),b2_pi/2 );
                     //player->setPosition(nextPosition);
                     //player->setVector(ccp(tap.x - player->getPositionX(), tap.y - player->getPositionY()));
 				}

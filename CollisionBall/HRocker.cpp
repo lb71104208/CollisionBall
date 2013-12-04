@@ -36,7 +36,7 @@ void   HRocker::Inactive()
 //摇杆方位
 CCPoint HRocker::getDirection()
 {
-    return ccpNormalize(ccpSub(centerPoint, currentPoint));
+    return ccpNormalize(ccpSub(currentPoint, centerPoint));
 }
 
 //摇杆力度

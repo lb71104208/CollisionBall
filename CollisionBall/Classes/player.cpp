@@ -58,7 +58,34 @@ void Player::Scale(float rate)
 
 void Player::update(cocos2d::CCPoint direction, float velocity)
 {
+    CCPoint nextPosition ;
+    nextPosition.x = this->getPosition().x+direction.x*velocity/2;
+    nextPosition.y = this->getPosition().y+direction.y*velocity/2;
     
+    
+    //keep this inside screen
+    if (nextPosition.x < this->getContentSize().width/2)
+        nextPosition.x = this->getContentSize().width/2;
+    if (nextPosition.x > _game->getScreenSize().width - this->getContentSize().width/2)
+        nextPosition.x = _game->getScreenSize().width - this->getContentSize().width/2;
+    if (nextPosition.y < this->getContentSize().height/2)
+        nextPosition.y  = this->getContentSize().height/2;
+    if (nextPosition.y > _game->getScreenSize().height - this->getContentSize().height/2)
+        nextPosition.y = _game->getScreenSize().height - this->getContentSize().height/2;
+    
+    
+    //keep this inside its court
+    if (this->getPositionY() < _game->getScreenSize().height * 0.5f) {
+        if (nextPosition.y > _game->getScreenSize().height * 0.5 - this->getContentSize().height/2 ) {
+            nextPosition.y = _game->getScreenSize().height * 0.5 - this->getContentSize().height/2;
+        }
+    } else {
+        if (nextPosition.y < _game->getScreenSize().height * 0.5 + this->getContentSize().height/2) {
+            nextPosition.y = _game->getScreenSize().height * 0.5 + this->getContentSize().height/2;
+        }
+    }
+
+    this->getBody()->SetTransform(b2Vec2(nextPosition.x/PTM_RATIO, nextPosition.y/PTM_RATIO), b2_pi/2 );
     if (_body && isVisible()) {
         setPositionX(_body->GetPosition().x * PTM_RATIO);
         setPositionY(_body->GetPosition().y * PTM_RATIO);
