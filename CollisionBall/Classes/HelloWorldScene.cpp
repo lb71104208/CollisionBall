@@ -508,10 +508,10 @@ void HelloWorld::applyEffects(int itemType,int playerTag, Item* item)
                 affectplayer = (Player*)_players->objectAtIndex(kPlayer1Tag);
             }
             
-            if (param < 4) {
-                    affectplayer->Scale(1.0f - 0.2f * param);
-                    param ++;
-                }
+            if (affectplayer->getScaleX()>0.3f) {
+                float scalex = affectplayer->getScaleX();
+                affectplayer->Scale(affectplayer->getScaleX()-0.2f);
+            }
             
             //_world->DestroyBody(item->getBody());
             item->setVisible(false);

@@ -18,7 +18,8 @@ itemManager::itemManager(int type)
     switch (type) {
         case kItemShorten:
         {
-            m_delta = 1.5f;
+            m_silentDelta = 1.5f;
+            m_displayingDelta = 1.5f;
         }
             break;
             
@@ -34,9 +35,17 @@ void itemManager::update(float dt)
 {
     if (_state == kItemCanNotProduce) {
         m_timer += dt;
-        if (m_timer>m_delta) {
+        if (m_timer>m_silentDelta) {
             _state = kItemCanProduce;
             m_timer = 0;
+        }
+    }
+    
+    else if (_state == kItemDisplaying)
+    {
+        m_timer += dt;
+        if (m_timer > m_displayingDelta) {
+            statements
         }
     }
 }

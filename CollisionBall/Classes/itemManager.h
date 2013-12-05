@@ -15,13 +15,14 @@
 enum ITEMSTATUS {
     kItemCanProduce,
     kItemCanNotProduce,
-    kITemDisplaying
+    kItemDisplaying
     };
 
 class itemManager:public CCObject {
 private:
     int itemType;
-    float m_delta;
+    float m_silentDelta;
+    float m_displayingDelta;
     float m_timer;
     
 public:
