@@ -2308,6 +2308,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0500;
+				TargetAttributes = {
+					8DB0D8981829ED2800061CFF = {
+						DevelopmentTeam = 925M29NF35;
+					};
+				};
 			};
 			buildConfigurationList = 8DB0D8941829ED2800061CFF /* Build configuration list for PBXProject "CollisionBall" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2709,6 +2714,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2717,8 +2724,8 @@
 				INFOPLIST_FILE = CollisionBall/Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/lb71104208/Documents/CollisionBall/CollisionBall/libs/cocos2dx/platform/third_party/ios/libraries,
-					/Users/lb71104208/Documents/CollisionBall/CollisionBall/libs/libwebsockets/ios/lib,
+					/Users/libo/Documents/CollisionBall/CollisionBall/libs/cocos2dx/platform/third_party/ios/libraries,
+					/Users/libo/Documents/CollisionBall/CollisionBall/libs/libwebsockets/ios/lib,
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -2727,6 +2734,7 @@
 					"-websockets",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "\"CollisionBall/libs\"";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2736,6 +2744,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CollisionBall/Prefix.pch;
@@ -2743,8 +2753,8 @@
 				INFOPLIST_FILE = CollisionBall/Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/lb71104208/Documents/CollisionBall/CollisionBall/libs/cocos2dx/platform/third_party/ios/libraries,
-					/Users/lb71104208/Documents/CollisionBall/CollisionBall/libs/libwebsockets/ios/lib,
+					/Users/libo/Documents/CollisionBall/CollisionBall/libs/cocos2dx/platform/third_party/ios/libraries,
+					/Users/libo/Documents/CollisionBall/CollisionBall/libs/libwebsockets/ios/lib,
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -2753,6 +2763,7 @@
 					"-websockets",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "\"CollisionBall/libs\"";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;

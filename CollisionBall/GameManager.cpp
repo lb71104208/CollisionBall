@@ -46,7 +46,7 @@ void GameManager::produceItemsByType(uint nType)
             if (i<5) {
                 _game->initItem(kItemShorten);
                 itemmgr = (itemManager*) _managers->objectAtIndex(nType -3);
-                itemmgr->setState(kITemDisplaying);
+                itemmgr->setState(kItemDisplaying);
             }
             else
             {

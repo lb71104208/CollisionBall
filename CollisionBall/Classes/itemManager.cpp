@@ -45,7 +45,7 @@ void itemManager::update(float dt)
     {
         m_timer += dt;
         if (m_timer > m_displayingDelta) {
-            statements
+            
         }
     }
 }
