@@ -58,6 +58,7 @@ public:
     void playerScore (int player);
     void playerWin (int player);
     void initItem(int type);
+    void destroyItem(int type);
     void applyEffects(int itemType, int playerTag, Item* item);
 
 private:
@@ -80,9 +81,6 @@ private:
     int _player2Score;
     
     int _gameState;
-    
-    void resettGame(int winner);
-    
 };
 
 #endif // __HELLO_WORLD_H__

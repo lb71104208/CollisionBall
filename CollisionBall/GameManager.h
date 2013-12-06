@@ -28,6 +28,7 @@ public:
     static HelloWorld* managedGame();
     void init();
     void produceItemsByType(uint nType);
+    void destroyItemByType(uint nType);
     void update(float dt);
     CC_SYNTHESIZE(HelloWorld*, _game, Game);
     void resetItem(int type);

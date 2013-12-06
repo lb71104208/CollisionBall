@@ -55,6 +55,7 @@ static AppDelegate s_sharedApplication;
         [window setRootViewController:viewController];
     }
     
+    [__glView setMultipleTouchEnabled:YES];
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden: YES];

@@ -2724,8 +2724,8 @@
 				INFOPLIST_FILE = CollisionBall/Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/libo/Documents/CollisionBall/CollisionBall/libs/cocos2dx/platform/third_party/ios/libraries,
-					/Users/libo/Documents/CollisionBall/CollisionBall/libs/libwebsockets/ios/lib,
+					/Users/lb71104208/Documents/CollisionBall/CollisionBall/libs/cocos2dx/platform/third_party/ios/libraries,
+					/Users/lb71104208/Documents/CollisionBall/CollisionBall/libs/libwebsockets/ios/lib,
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -2753,8 +2753,8 @@
 				INFOPLIST_FILE = CollisionBall/Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/libo/Documents/CollisionBall/CollisionBall/libs/cocos2dx/platform/third_party/ios/libraries,
-					/Users/libo/Documents/CollisionBall/CollisionBall/libs/libwebsockets/ios/lib,
+					/Users/lb71104208/Documents/CollisionBall/CollisionBall/libs/cocos2dx/platform/third_party/ios/libraries,
+					/Users/lb71104208/Documents/CollisionBall/CollisionBall/libs/libwebsockets/ios/lib,
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",

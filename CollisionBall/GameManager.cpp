@@ -59,7 +59,13 @@ void GameManager::produceItemsByType(uint nType)
         default:
             break;
     }
-   }
+}
+
+void GameManager::destroyItemByType(uint nType)
+{
+    _game->destroyItem(kItemShorten);
+    //itemmgr = (itemManager*) _managers->objectAtIndex(nType -3);
+}
 
 void GameManager::update(float dt)
 {
@@ -71,6 +77,10 @@ void GameManager::update(float dt)
         if (itemmanager->getState() == kItemCanProduce) {
             this->produceItemsByType(i+3);
         }
+        else if ( itemmanager ->getState() == kItemDestroy)
+        {
+            this->destroyItemByType(i+3);
+        }
     }
 
 }
@@ -79,7 +89,6 @@ void GameManager::resetItem(int type)
 {
     itemManager*  itemmanager = (itemManager*)_managers->objectAtIndex(type -3);
     itemmanager->setState(kItemCanNotProduce);
-    srand(time(0));
 }
 
 

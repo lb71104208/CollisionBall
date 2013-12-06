@@ -15,7 +15,8 @@
 enum ITEMSTATUS {
     kItemCanProduce,
     kItemCanNotProduce,
-    kItemDisplaying
+    kItemDisplaying,
+    kItemDestroy
     };
 
 class itemManager:public CCObject {

@@ -19,7 +19,7 @@ itemManager::itemManager(int type)
         case kItemShorten:
         {
             m_silentDelta = 1.5f;
-            m_displayingDelta = 1.5f;
+            m_displayingDelta = 5.0f;
         }
             break;
             
@@ -45,7 +45,8 @@ void itemManager::update(float dt)
     {
         m_timer += dt;
         if (m_timer > m_displayingDelta) {
-            
+            _state = kItemDestroy;
+            m_timer = 0;
         }
     }
 }

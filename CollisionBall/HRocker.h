@@ -30,7 +30,8 @@ class HRocker :public CCLayer {
     CCPoint getDirection();
     
     float getVelocity();
-
+    CC_SYNTHESIZE(CCTouch *, _touch, Touch);
+    
     
 private:
     HRocker * initWithCenter(CCPoint aPoint ,float aRadius ,CCSprite* aJsSprite,CCSprite* aJsBg,bool _isFollowRole);
@@ -48,10 +49,10 @@ private:
     bool isFollowRole;//是否跟随用户点击
     
     void  updatePos(CCTime dt);
-    
     virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
+    
     CREATE_FUNC(HRocker);
 };
 #endif

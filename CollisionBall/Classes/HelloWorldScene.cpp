@@ -257,8 +257,9 @@ void HelloWorld::ccTouchesBegan(CCSet* pTouches, CCEvent* event)
         _gameState = kMatchNew;
     }
     if (_gameState == kGameReady) {
+        srand(time(0));
         _startflag->setVisible(false);
-        _ball->getBody()->ApplyLinearImpulse(b2Vec2(0.0,-100.0),_ball->getBody()->GetWorldCenter());
+        //_ball->getBody()->ApplyLinearImpulse(b2Vec2(0.0,-100.0),_ball->getBody()->GetWorldCenter());
         _gameState = kGamePlaying;
         return;
     }
@@ -267,18 +268,19 @@ void HelloWorld::ccTouchesBegan(CCSet* pTouches, CCEvent* event)
     CCSetIterator i;
     CCTouch* touch;
     CCPoint tap;
-    Player* player;
+    HRocker* joystick;
     
     for (i=pTouches->begin(); i!=pTouches->end(); i++) {
         touch = (CCTouch*)(*i);
         if (touch) {
             tap=touch->getLocation();
             for (int p = 0; p < 2; p++) {
-        		player = (Player *) _players->objectAtIndex(p);
+                joystick = (HRocker *) _playerControllers->objectAtIndex(p);
                 
-                if (player->boundingBox().containsPoint(tap)) {
+                if (joystick->boundingBox().containsPoint(tap)) {
                 	//store player's touch
-                	player->setTouch(touch);
+                    //joystick->ccTouchBegan(touch, event);
+                	//joystick->setTouch(touch);
 				}
         	}
         }
@@ -290,7 +292,7 @@ void HelloWorld::ccTouchesMoved(cocos2d::CCSet *pTouches, cocos2d::CCEvent *even
     CCSetIterator i;
     CCTouch* touch;
     CCPoint tap;
-    Player* player;
+    HRocker* joystick;
     
     for( i = pTouches->begin(); i != pTouches->end(); i++) {
 		touch = (CCTouch*) (*i);
@@ -298,34 +300,13 @@ void HelloWorld::ccTouchesMoved(cocos2d::CCSet *pTouches, cocos2d::CCEvent *even
 		if(touch) {
 			tap = touch->getLocation();
 			
-			for (int p = 0; p < _players->count(); p++) {
+			for (int p = 0; p < _playerControllers->count(); p++) {
         		
-        		player = (Player *) _players->objectAtIndex(p);
+        		joystick = (HRocker *) _playerControllers->objectAtIndex(p);
         		//if touch belongs to player
-        		if (player->getTouch() != NULL && player->getTouch() == touch) {
-                    CCPoint nextPosition = tap;
+        		if (joystick->getTouch() != NULL && joystick->getTouch() == touch) {
+                    //joystick->ccTouchMoved (touch, event);
                     
-                    //keep player inside screen
-                    if (nextPosition.x < player->getContentSize().width/2)
-                        nextPosition.x = player->getContentSize().width/2;
-                    if (nextPosition.x > _screenSize.width - player->getContentSize().width/2)
-                        nextPosition.x = _screenSize.width - player->getContentSize().width/2;
-                    if (nextPosition.y < player->getContentSize().height/2)
-                        nextPosition.y  = player->getContentSize().height/2;
-                    if (nextPosition.y > _screenSize.height - player->getContentSize().height/2)
-                        nextPosition.y = _screenSize.height - player->getContentSize().height/2;
-                
-                    
-                    //keep player inside its court
-                    if (player->getPositionY() < _screenSize.height * 0.5f) {
-                        if (nextPosition.y > _screenSize.height * 0.5 - player->getContentSize().height/2 ) {
-                            nextPosition.y = _screenSize.height * 0.5 - player->getContentSize().height/2;
-                        }
-                    } else {
-                        if (nextPosition.y < _screenSize.height * 0.5 + player->getContentSize().height/2) {
-                            nextPosition.y = _screenSize.height * 0.5 + player->getContentSize().height/2;
-                        }
-                    }
                     //player->getBody()->SetTransform(b2Vec2(nextPosition.x/PTM_RATIO,nextPosition.y/PTM_RATIO),b2_pi/2 );
                     //player->setPosition(nextPosition);
                     //player->setVector(ccp(tap.x - player->getPositionX(), tap.y - player->getPositionY()));
@@ -340,19 +321,19 @@ void HelloWorld::ccTouchesEnded(CCSet* pTouches, CCEvent* event) {
     
 	CCSetIterator i;
 	CCTouch* touch;
-    Player * player;
+    HRocker * joystick;
     
     //loop through all ending touches
 	for( i = pTouches->begin(); i != pTouches->end(); i++) {
 		touch = (CCTouch*) (*i);
 		
 		if(touch) {
-			for (int p = 0; p < _players->count(); p++) {
-        		player = (Player *) _players->objectAtIndex(p);
-        		if (player->getTouch() != NULL && player->getTouch() == touch) {
+			for (int p = 0; p < _playerControllers->count(); p++) {
+        		joystick = (HRocker *) _playerControllers->objectAtIndex(p);
+        		if (joystick->getTouch() != NULL && joystick->getTouch() == touch) {
+                    //joystick->ccTouchEnded(touch, event);
 					//if touch ending belongs to this player, clear it
-					player->setTouch(NULL);
-                    player->setVector(CCPointZero);
+					//joystick->setTouch(NULL);
 				}
         	}
 		}
@@ -461,6 +442,7 @@ void HelloWorld::resetGame()
     
     for (int i=0; i<_items->count(); i++) {
         Item* item = (Item*)_items->objectAtIndex(i);
+        _gameManager->resetItem(item->getType());
         _world->DestroyBody(item->getBody());
         item->setVisible(false);
         this->removeChild(item);
@@ -494,6 +476,29 @@ void HelloWorld::initItem(int type)
     }
 }
 
+void HelloWorld::destroyItem(int type)
+{
+    switch (type) {
+        case kItemShorten:
+        {
+            CCObject* pObj;
+            CCARRAY_FOREACH(_items,pObj)
+            {
+                Item* item = dynamic_cast<Item*>(pObj);
+                if (item->getType() == kItemShorten) {
+                    item->setVisible(false);
+                    _gameManager->resetItem(kItemShorten);
+                }
+            }
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+}
+
 void HelloWorld::applyEffects(int itemType,int playerTag, Item* item)
 {
     switch (itemType) {
@@ -510,7 +515,7 @@ void HelloWorld::applyEffects(int itemType,int playerTag, Item* item)
             
             if (affectplayer->getScaleX()>0.3f) {
                 float scalex = affectplayer->getScaleX();
-                affectplayer->Scale(affectplayer->getScaleX()-0.2f);
+                affectplayer->Scale(scalex-0.2f);
             }
             
             //_world->DestroyBody(item->getBody());
