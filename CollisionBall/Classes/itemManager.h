@@ -24,13 +24,13 @@ private:
     int itemType;
     float m_silentDelta;
     float m_displayingDelta;
-    float m_timer;
     
 public:
     ~itemManager();
     itemManager(int type);
     void update(float dt);
     CC_SYNTHESIZE(int, _state, State);
+    CC_SYNTHESIZE(float, _timer, Timer);
 
 };
 

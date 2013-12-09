@@ -28,25 +28,25 @@ itemManager::itemManager(int type)
     }
     itemType = type;
     _state = kItemCanNotProduce;
-    m_timer = 0;
+    _timer = 0;
 }
 
 void itemManager::update(float dt)
 {
     if (_state == kItemCanNotProduce) {
-        m_timer += dt;
-        if (m_timer>m_silentDelta) {
+        _timer += dt;
+        if (_timer>m_silentDelta) {
             _state = kItemCanProduce;
-            m_timer = 0;
+            _timer = 0;
         }
     }
     
     else if (_state == kItemDisplaying)
     {
-        m_timer += dt;
-        if (m_timer > m_displayingDelta) {
+        _timer += dt;
+        if (_timer > m_displayingDelta) {
             _state = kItemDestroy;
-            m_timer = 0;
+            _timer = 0;
         }
     }
 }

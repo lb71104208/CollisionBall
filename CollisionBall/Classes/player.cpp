@@ -79,10 +79,19 @@ void Player::update(cocos2d::CCPoint direction, float velocity)
         if (nextPosition.y > _game->getScreenSize().height * 0.5 - this->getContentSize().height/2 ) {
             nextPosition.y = _game->getScreenSize().height * 0.5 - this->getContentSize().height/2;
         }
+        
+        if (nextPosition.y<124.0f + this->getContentSize().height/2) {
+            nextPosition.y = 124.0f + this->getContentSize().height/2;
+        }
     } else {
         if (nextPosition.y < _game->getScreenSize().height * 0.5 + this->getContentSize().height/2) {
             nextPosition.y = _game->getScreenSize().height * 0.5 + this->getContentSize().height/2;
         }
+        
+        if (nextPosition.y> _game->getScreenSize().height - 124.0f - this->getContentSize().height/2) {
+            nextPosition.y = _game->getScreenSize().height - 124.0f - this->getContentSize().height/2;
+        }
+    
     }
 
     this->getBody()->SetTransform(b2Vec2(nextPosition.x/PTM_RATIO, nextPosition.y/PTM_RATIO), b2_pi/2 );

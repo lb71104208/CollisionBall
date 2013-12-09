@@ -241,8 +241,10 @@ void HelloWorld::update(float dt)
         
         if (!item->isVisible()) {
             
-            item->hide();
+            //item->hide();
             _items->removeObject(item);
+            _world->DestroyBody(item->getBody());
+            this->removeChild(item);
         } else {
             
             item->update(dt);
@@ -259,7 +261,7 @@ void HelloWorld::ccTouchesBegan(CCSet* pTouches, CCEvent* event)
     if (_gameState == kGameReady) {
         srand(time(0));
         _startflag->setVisible(false);
-        //_ball->getBody()->ApplyLinearImpulse(b2Vec2(0.0,-100.0),_ball->getBody()->GetWorldCenter());
+        _ball->getBody()->ApplyLinearImpulse(b2Vec2(0.0,-100.0),_ball->getBody()->GetWorldCenter());
         _gameState = kGamePlaying;
         return;
     }
@@ -458,7 +460,7 @@ void HelloWorld::initItem(int type)
 {
     srand(time(0));
     int x = rand() % (int) (_screenSize.width * 0.8f) + _screenSize.width * 0.1f;
-    int y = rand() % (int) ((_screenSize.height - 2*124.0f) * 0.8f) + 124.0f;
+    int y = rand() % (int) (_screenSize.height * 0.5f) + _screenSize.height * 0.25f;
     CCPoint appearPosition = CCPoint(x, y);
     
     switch (type) {

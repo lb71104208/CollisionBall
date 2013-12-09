@@ -89,6 +89,7 @@ void GameManager::resetItem(int type)
 {
     itemManager*  itemmanager = (itemManager*)_managers->objectAtIndex(type -3);
     itemmanager->setState(kItemCanNotProduce);
+    itemmanager->setTimer(0.0f);
 }
 
 
